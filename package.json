@@ -1,6 +1,6 @@
 {
   "name": "sqhtml",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Base to start projects in HTML, simply and quickly",
   "main": "index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "postcss": "^8.3.5",
     "postcss-inline-svg": "^5.0.0",
     "sass": "^1.45.0",
+    "browser-sync": "^2.27.9",
     "sisass": "1.1.11"
   }
 }
