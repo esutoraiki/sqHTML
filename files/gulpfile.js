@@ -1,6 +1,7 @@
 "use strict";
 
-const gulp = require("gulp"),
+const
+    gulp = require("gulp"),
     del = require("del"),
     sass = require("gulp-sass")(require("sass")),
     eslint = require("gulp-eslint"),
@@ -9,57 +10,88 @@ const gulp = require("gulp"),
     postinlinesvg = require("postcss-inline-svg"),
     jsonlint = require("gulp-jsonlint"),
     log = require("fancy-log"),
+    merge = require("merge-stream"),
 
+    // NOTE: foler core and sisass last element of array
     paths_scss = [
-        "assets/scss",
-        "assets/scss/core",
+        "assets/scss/",
+        "assets/scss/core/",
         "node_modules/sisass/src/scss/"
     ],
-    path_compile_scss = [
+    paths_dest_css = [
+        "assets/css/",
+        "assets/css/pages/",
+        "assets/css/components/"
+    ],
+    paths_compile_scss = [
         "assets/scss/*.scss",
-        "assets/scss/components/*.scss",
-        "!assets/scss/svg.scss"
-    ];
+        "assets/scss/pages/*.scss",
+        "assets/scss/components/*.scss"
+    ],
+
+    path_svg = "assets/scss/svg/*.scss",
+    path_dest_svg = "assets/css/svg/",
+
+    path_img_svg = "assets/img/svg/*.svg",
+    path_orig_img_svg = "assets/img/svg/orig/*.svg",
+    path_dest_img_svg = "assets/img/svg/"
+;
 
 gulp.task("delete_svg", function () {
-    return del("assets/img/svg/*.svg");
+    console.log("");
+    console.log("---- SVG ----");
+
+    return del(path_img_svg);
 });
 
 gulp.task("svgmin", function () {
-    return gulp.src("assets/img/svg/orig/*")
+    return gulp.src(path_orig_img_svg)
         .pipe(svgmin(
             { removeStyleElement: true },
             { removeComments: true }
         ))
-        .pipe(gulp.dest("assets/img/svg/"));
+        .pipe(gulp.dest(path_dest_img_svg));
 })
 
 gulp.task("process_svg", function () {
-    return gulp.src("assets/css/svg.css")
+    return gulp.src(path_dest_svg + "*.css")
         .pipe(postcss([
             postinlinesvg({
                 removeFill: true
             })
         ]))
-        .pipe(gulp.dest("assets/css/"));
+        .pipe(gulp.dest(path_dest_svg));
 })
 
 gulp.task("css_svg", function () {
-    return gulp.src("assets/scss/svg.scss")
+    console.log("");
+    console.log("---- Styles SVG ----");
+
+    return gulp.src(path_svg)
         .pipe(sass({
             outputStyle: "compressed",
             includePaths: paths_scss
         }).on("error", sass.logError))
-        .pipe(gulp.dest("assets/css/"));
+        .pipe(gulp.dest(path_dest_svg));
 });
 
 gulp.task("scss", function () {
-    return gulp.src(path_compile_scss)
-        .pipe(sass({
-            outputStyle: "compressed",
-            includePaths: paths_scss
-        }).on("error", sass.logError))
-        .pipe(gulp.dest("assets/css/"));
+    console.log("");
+    console.log("---- Styles ----");
+
+    let task_array = [];
+
+    for (let i = 0; i < paths_compile_scss.length - 1; i++) {
+        task_array[i] = gulp.src(paths_compile_scss[i])
+            .pipe(sass({
+                outputStyle: "compressed",
+                includePaths: paths_scss
+            }).on("error", sass.logError))
+            .pipe(gulp.dest(paths_dest_css[i]));
+    }
+
+    console.log("");
+    return merge(...task_array);
 });
 
 gulp.task("lint", function() {
@@ -101,9 +133,9 @@ gulp.task("watch", function () {
     gulp.watch("assets/js/*.js", gulp.series("lint"));
     gulp.watch("assets/json/*.json", gulp.series("jsonlint"));
 
-    gulp.watch(path_compile_scss, gulp.series("scss"));
-    gulp.watch("assets/scss/svg.scss", gulp.series("css_svg", "process_svg"));
-    gulp.watch("assets/img/svg/orig/*.svg", gulp.series(
+    gulp.watch(paths_compile_scss, gulp.series("scss"));
+    gulp.watch(path_svg, gulp.series("css_svg", "process_svg"));
+    gulp.watch(path_orig_img_svg, gulp.series(
         "delete_svg",
         "svgmin",
         "css_svg",
