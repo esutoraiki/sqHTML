@@ -9,8 +9,15 @@ const
     postcss = require("gulp-postcss"),
     postinlinesvg = require("postcss-inline-svg"),
     jsonlint = require("gulp-jsonlint"),
-    log = require("fancy-log"),
     merge = require("merge-stream"),
+    browserSync = require("browser-sync").create(),
+    arg = require("./utils/arg.js").arg,
+
+    port =  Number(arg.port) || Number(arg.p) || 3000,
+    port_serve =  Number(arg.portServe) || 8125,
+    sync = arg.sync || true,
+
+    reload = browserSync.reload,
 
     // NOTE: foler core and sisass last element of array
     paths_scss = [
@@ -126,26 +133,39 @@ gulp.task("jsonlint", function () {
         .pipe(jsonlint.reporter(myCustomReporter));
 });
 
+gulp.task("browserSync", function() {
+    console.log("");
+    console.log("---- INICIADO BROWSERSYNC ----");
+
+    browserSync.init({
+        proxy: "http://localhost:" + port_serve,
+        open: false,
+        notify: false,
+        port: port,
+        codeSync: sync
+    });
+});
+
 gulp.task("watch", function () {
     console.log("");
     console.log("---- INICIADO WATCH ----");
 
-    gulp.watch("assets/js/*.js", gulp.series("lint"));
-    gulp.watch("assets/json/*.json", gulp.series("jsonlint"));
+    gulp.watch("assets/js/*.js", gulp.series("lint")).on("change", reload);
+    gulp.watch("assets/json/*.json", gulp.series("jsonlint")).on("change", reload);
 
-    gulp.watch(paths_compile_scss, gulp.series("scss"));
-    gulp.watch(path_svg, gulp.series("css_svg", "process_svg"));
+    gulp.watch(paths_compile_scss, gulp.series("scss")).on("change", reload);
+    gulp.watch(path_svg, gulp.series("css_svg", "process_svg")).on("change", reload);
     gulp.watch(path_orig_img_svg, gulp.series(
         "delete_svg",
         "svgmin",
         "css_svg",
         "process_svg"
-    ));
+    )).on("change", reload);
 
     gulp.watch("assets/scss/core/*.scss", gulp.parallel(
         "scss",
         gulp.series("css_svg", "process_svg")
-    ));
+    )).on("change", reload);
 });
 
-gulp.task("default", gulp.series("watch"));
+gulp.task("default", gulp.parallel("watch", "browserSync"));
