@@ -23,7 +23,7 @@
     "url": "https://github.com/esutoraiki/sqHTML/issues"
   },
   "homepage": "https://github.com/esutoraiki/sqHTML#readme",
-  "devDependencies": {
+  "dependencies": {
     "del": "^6.0.0",
     "fancy-log": "^2.0.0",
     "gulp": "^4.0.2",
