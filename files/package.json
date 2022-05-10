@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "serve": "nodemon --ext html,js,css,scss ./utils/serve.js"
+  }
+  "dependencies": {
+    "sqhtml": "^1.0.5"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.27.9"
+  }
+}
