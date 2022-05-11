@@ -41,7 +41,12 @@ const
 
     path_img_svg = "assets/img/svg/*.svg",
     path_orig_img_svg = "assets/img/svg/orig/*.svg",
-    path_dest_img_svg = "assets/img/svg/"
+    path_dest_img_svg = "assets/img/svg/",
+
+    paths_html = [
+        "*.html",
+        "pages/*.html"
+    ]
 ;
 
 gulp.task("delete_svg", function () {
@@ -133,6 +138,13 @@ gulp.task("jsonlint", function () {
         .pipe(jsonlint.reporter(myCustomReporter));
 });
 
+gulp.task("html", function () {
+    console.log("");
+    console.log("---- HTML ----");
+
+    return false;
+});
+
 gulp.task("browserSync", function() {
     console.log("");
     console.log("---- INICIADO BROWSERSYNC ----");
@@ -166,6 +178,8 @@ gulp.task("watch", function () {
         "scss",
         gulp.series("css_svg", "process_svg")
     )).on("change", reload);
+
+    gulp.watch(paths_html, gulp.series("html")).on("change", reload);
 });
 
 gulp.task("default", gulp.parallel("watch", "browserSync"));
