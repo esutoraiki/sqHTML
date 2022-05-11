@@ -11,11 +11,13 @@ const
     jsonlint = require("gulp-jsonlint"),
     merge = require("merge-stream"),
     browserSync = require("browser-sync").create(),
-    arg = require("./utils/arg.js").arg,
+    arg = require("./config/arg.js").arg,
+    fn = require("./config/fn.js"),
 
     port =  Number(arg.port) || Number(arg.p) || 3000,
     port_serve =  Number(arg.portServe) || 8125,
-    sync = arg.sync || true,
+    sync = fn.stringToBoolean(arg.sync) || false,
+    browser = fn.stringToBoolean(arg.browser) || false,
 
     reload = browserSync.reload,
 
@@ -42,6 +44,11 @@ const
     path_img_svg = "assets/img/svg/*.svg",
     path_orig_img_svg = "assets/img/svg/orig/*.svg",
     path_dest_img_svg = "assets/img/svg/",
+
+    paths_js = [
+        "assets/js/*.js",
+        "assets/js/modules/*.js"
+    ],
 
     paths_html = [
         "*.html",
@@ -110,17 +117,26 @@ gulp.task("lint", function() {
     console.log("");
     console.log("---- ES-LINT ----");
 
-    return gulp.src("assets/js/*.js")
-        .pipe(eslint({}))
-        .pipe(eslint.format())
-        .pipe(eslint.results(results => {
-            // Called once for all ESLint results.
-            console.log(`Total Results: ${results.length}`);
-            console.log(`Total Warnings: ${results.warningCount}`);
-            console.log(`Total Errors: ${results.errorCount}`);
+    let task_array = [];
 
-            console.log("");
-        }));
+    for (let i = 0; i < paths_js.length; i++) {
+        console.log("js:", paths_js[i]);
+        task_array[i] = gulp.src(paths_js[i])
+            .pipe(eslint({}))
+            .pipe(eslint.format())
+            .pipe(eslint.results(results => {
+                // Called once for all ESLint results.
+                console.log(`Total Results: ${results.length}`);
+                console.log(`Total Warnings: ${results.warningCount}`);
+                console.log(`Total Errors: ${results.errorCount}`);
+
+                console.log("");
+            }));
+    }
+
+    console.log("");
+    return merge(...task_array);
+
 });
 
 gulp.task("jsonlint", function () {
@@ -162,7 +178,8 @@ gulp.task("watch", function () {
     console.log("");
     console.log("---- INICIADO WATCH ----");
 
-    gulp.watch("assets/js/*.js", gulp.series("lint")).on("change", reload);
+    gulp.watch(paths_js, gulp.series("lint")).on("change", reload);
+
     gulp.watch("assets/json/*.json", gulp.series("jsonlint")).on("change", reload);
 
     gulp.watch(paths_compile_scss, gulp.series("scss")).on("change", reload);
@@ -182,4 +199,8 @@ gulp.task("watch", function () {
     gulp.watch(paths_html, gulp.series("html")).on("change", reload);
 });
 
-gulp.task("default", gulp.parallel("watch", "browserSync"));
+if (browser === true) {
+    gulp.task("default", gulp.parallel("watch", "browserSync"));
+} else {
+    gulp.task("default", gulp.series("watch"));
+}
