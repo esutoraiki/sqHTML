@@ -11,6 +11,7 @@ const
     jsonlint = require("gulp-jsonlint"),
     merge = require("merge-stream"),
     browserSync = require("browser-sync").create(),
+
     arg = require("./config/arg.js").arg,
     fn = require("./config/fn.js"),
 
@@ -52,7 +53,8 @@ const
 
     paths_html = [
         "*.html",
-        "pages/*.html"
+        "pages/*.html",
+        "components/*.html"
     ]
 ;
 
@@ -100,7 +102,7 @@ gulp.task("scss", function () {
 
     let task_array = [];
 
-    for (let i = 0; i < paths_compile_scss.length - 1; i++) {
+    for (let i = 0; i < paths_compile_scss.length; i++) {
         task_array[i] = gulp.src(paths_compile_scss[i])
             .pipe(sass({
                 outputStyle: "compressed",
@@ -120,7 +122,6 @@ gulp.task("lint", function() {
     let task_array = [];
 
     for (let i = 0; i < paths_js.length; i++) {
-        console.log("js:", paths_js[i]);
         task_array[i] = gulp.src(paths_js[i])
             .pipe(eslint({}))
             .pipe(eslint.format())

@@ -2,11 +2,13 @@ const
     http = require("http"),
     fs = require("fs"),
     path = require("path"),
+
     arg = require("./arg.js").arg,
+    fn = require("./fn.js"),
 
     // Arguments
     port =  Number(arg.port) || Number(arg.p) || 8125,
-    view = arg.log || false
+    view = fn.stringToBoolean(arg.log) || false
 ;
 
 http.createServer(function (request, response) {
