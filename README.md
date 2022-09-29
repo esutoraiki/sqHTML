@@ -1,4 +1,4 @@
-# sqlaravel
+# sqhtml
 
 Base to start projects in HTML, simply and quickly.
 
@@ -16,7 +16,3 @@ Base to start projects in HTML, simply and quickly.
    npm i sqhtml
    npm explore sisass -- npm run init
    ```
-
-
-
-
