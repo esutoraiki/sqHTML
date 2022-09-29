@@ -1,4 +1,4 @@
-// Update: 20220511
+// Update: 20220619
 /** @module js/core/ */
 
 /*
@@ -59,15 +59,17 @@ function buildNode(attr = {}) {
         type = attr.type || "div",
         content = attr.content || "",
         attr_node = attr.attr || [],
-        insert = attr.insert || false,
-        insert_node = attr.insert_node || false,
-        prepend = attr.prepend || false,
+        insert_node = attr.insert || false,
+        position = attr.position || "afterend",
 
         success = attr.success || function () { return undefined; },
 
         attr_o = null,
-        node = document.createElement(type)
+        node = null
     ;
+
+    // Load content
+    node = document.createElement(type);
 
     if (attr_node.length > 0) {
         for (let attribute of attr_node) {
@@ -75,17 +77,13 @@ function buildNode(attr = {}) {
             attr_o.nodeValue = attribute[1];
             node.setAttributeNode(attr_o);
         }
-
-        node.innerHTML = content;
     }
 
-    if (insert) {
-        if (prepend) {
-            insert_node.insertBefore(node, insert_node.firstChild);
-        } else  {
-            insert_node.appendChild(node);
-        }
+    node.innerHTML = content;
 
+    // Insert node
+    if (insert_node) {
+        insert_node.insertAdjacentElement(position, node);
         success();
     }
 
