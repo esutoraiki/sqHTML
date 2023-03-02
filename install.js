@@ -1,8 +1,9 @@
 const
     fs = require("fs"),
+    path = require("path");
 
     // args = process.argv.slice(2),
-    dest = "../../",
+    dest = path.join(__dirname, "../../");
     filesDir = "files/"
 ;
 
