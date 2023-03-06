@@ -1,4 +1,4 @@
-// Update: 20220619
+// Update: 20230306
 /** @module js/core/ */
 
 /*
@@ -49,9 +49,13 @@ function loadAjax(attr = {}) {
  * Buil Node
  * Constructor of nodes (elements) to add in HTML
  * @parms {object} attr
- * @parms {string} attr.type=div Type of node (element)
- * @parms {(string|HTML)} attr.content Content of node (element)
- * @parms {object[]} attr.attr Attributes for the node (element)
+ * @parms {string} attr.type="div" Type of node (element)
+ * @parms {(string|HTML)} attr.content="" Content of node (element)
+ * @parms {object[]} attr.attr=[] Attributes for the node (element)
+ * @parms {boolean|node} attr.insert=false Node in which the insertion is going to be made
+ * @parms {string} attr.position="afterend" insertion position, the positions are: beforebegin, afterbegin, beforeend, afterend
+ * @parms {success} attr.success that is executed at the end of the construction of the node
+ * @callback success
  * @return {Node}
  */
 function buildNode(attr = {}) {
@@ -90,4 +94,47 @@ function buildNode(attr = {}) {
     return node;
 }
 
-export { loadAjax, buildNode };
+
+/*
+ * Loading components in HTML
+ * @parms {object} attr
+ * @parms {string} attr.node=null Node in which the insertion is going to be made
+ * @parms {string} attr.path=null HTML URL
+ * @parms {string} attr.type="div" Type of node (element)
+ * @parms {string} attr.position="afterbegin" insertion position, the positions are: beforebegin, afterbegin, beforeend, afterend
+ * @parms {object[]} attr.attr=[] Attributes for the node (element)
+ * @parms {success} attr.success that is executed at the end of the construction of the node
+ * @callback success
+ */
+
+function loadComponentHTML(attr = {}) {
+    const
+        node = attr.node || null,
+        path = attr.path || null,
+        type = attr.type || "div",
+        position = attr.position || "afterbegin",
+        attr_element = attr.attr || [],
+
+        success = attr.success || function () { return undefined; }
+    ;
+
+    if (node !== null && path !== null) {
+        fetch(path)
+            .then(response => response.text())
+            .then(html => {
+                buildNode({
+                    content: html,
+                    type: type,
+                    insert: node,
+                    position: position,
+                    attr: attr_element,
+                    success: success
+                });
+            })
+            .catch(error => {
+                console.error("Error loading HTML file:", error);
+            });
+    }
+}
+
+export { loadAjax, buildNode, loadComponentHTML };
