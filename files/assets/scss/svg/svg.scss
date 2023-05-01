@@ -1,5 +1,12 @@
 @import "instance";
 
-.logo {
-    @include icon-svg(name_svg, 100px, 100px, $c1);
+.logo_sqhtml {
+    &:before {
+        @include icon-svg(
+            logo_sqhtml,
+            270px, 99px,
+            $c3
+        );
+        content: "";
+    }
 }

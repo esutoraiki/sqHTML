@@ -106,7 +106,6 @@ function buildNode(attr = {}) {
  * @parms {success} attr.success that is executed at the end of the construction of the node
  * @callback success
  */
-
 function loadComponentHTML(attr = {}) {
     const
         node = attr.node || null,

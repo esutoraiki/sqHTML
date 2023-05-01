@@ -23,3 +23,9 @@ Base to start projects in HTML, simply and quickly.
    npm i sqhtml
    npm explore sisass -- npm run init
    ```
+
+4. Rename the gitignore file
+   
+   ```bash
+   mv gitignore .gitignore
+   ```
