@@ -1,6 +1,6 @@
 {
   "name": "sqhtml",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Base to start projects in HTML, simply and quickly",
   "main": "index.js",
   "scripts": {
