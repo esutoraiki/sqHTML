@@ -39,6 +39,6 @@
     "nodemon": "2.0.22",
     "postcss-inline-svg": "6.0.0",
     "sass": "1.62.1",
-    "sisass": "1.1.20"
+    "sisass": "1.1.21"
   }
 }
