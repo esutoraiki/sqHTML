@@ -44,8 +44,8 @@
         ],
         "mindest": [
             "assets/js/min/",
-            "assets/js/pages/min",
-            "assets/js/components/min"
+            "assets/js/min/pages",
+            "assets/js/min/components"
         ]
     },
     "json": {

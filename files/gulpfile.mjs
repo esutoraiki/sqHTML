@@ -1,4 +1,4 @@
-/* Update: 20230429 */
+/* Update: 20230515 */
 
 "use strict";
 
@@ -165,6 +165,29 @@ task("jsdel", function (done) {
     });
 });
 
+task("jsmin", function () {
+    logs("");
+    logs("%[magenta]---- JS-MIN ----");
+
+    let task_array = [];
+
+    for (let i = 0; i < paths.js.src.length; i++) {
+        task_array[i] = src(paths.js.src[i])
+            .pipe(uglify())
+            .pipe(rename(function (path) {
+                return {
+                    dirname: path.dirname,
+                    basename: path.basename + ".min",
+                    extname: ".js"
+                };
+            }))
+            .pipe(dest(paths.js.mindest[i]));
+    }
+
+    logs("");
+    return merge(...task_array);
+});
+
 task("jslint", function() {
     logs("");
     logs("i%[magenta]---- JS-ES-LINT ----");
@@ -188,30 +211,6 @@ task("jslint", function() {
     return merge(...task_array);
 });
 
-task("js", function () {
-    logs("");
-    logs("%[magenta]---- JS ----");
-
-    let task_array = [];
-
-    for (let i = 0; i < paths.js.src.length; i++) {
-        if (minjs) {
-            task_array[i] = src(paths.js.src[i])
-                .pipe(uglify())
-                .pipe(rename(function (path) {
-                    return {
-                        dirname: path.dirname,
-                        basename: path.basename + ".min",
-                        extname: ".js"
-                    };
-                }))
-                .pipe(dest(paths.js.mindest[i]));
-        }
-    }
-
-    logs("");
-    return merge(...task_array);
-});
 
 task("jsonlint", function () {
     logs("");
@@ -283,12 +282,17 @@ function watchFiles() {
         )
     )).on("change", list_files);
 
-        // JS //
+    // JS //
     watch(paths.js.src, series(
-        "jsdel",
         "jslint",
-        "js"
     )).on("change", list_files);
+
+    if (minjs) {
+        watch(paths.js.src, series(
+            "jsdel",
+            "jsmin"
+        )).on("change", list_files);
+    }
 
     // JSON //
     watch(paths.json.src, series(
