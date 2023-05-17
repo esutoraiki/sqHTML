@@ -270,10 +270,7 @@ function watchFiles() {
     logs("");
 
     // SCSS //
-    watch(paths.scss.src, series("scss")).on("change", () => {
-        list_files();
-        reload();
-    });
+    watch(paths.scss.src, series("scss")).on("change", list_files);
     watch(paths.scss.core, parallel(
         "scss",
         series(
