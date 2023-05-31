@@ -39,13 +39,15 @@ http.createServer(function (request, response) {
         ".png": "image/png",
         ".jpg": "image/jpg",
         ".gif": "image/gif",
+        ".svg": "image/svg+xml",
         ".wav": "audio/wav",
         ".mp4": "video/mp4",
+        ".webm": "video/webm",
+        ".ogv": "video/ogv",
         ".woff": "application/font-woff",
         ".ttf": "applilcation/font-ttf",
         ".eot": "application/vnd.ms-fontobject",
         ".otf": "application/font-otf",
-        ".svg": "application/image/svg+xml",
         ".scss": "text/x-scss"
     };
 
