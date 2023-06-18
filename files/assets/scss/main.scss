@@ -8,8 +8,7 @@
 @import "mixin";
 @import "silent_class";
 
-
-html {}
+html { scroll-behavior: smooth; }
 .no_scroll { overflow: hidden; }
 .hide { display: none !important; }
 
