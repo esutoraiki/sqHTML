@@ -11,16 +11,21 @@ Los proyectos dentro de este repositorio se pueden ejecutar directamente en el n
 ```
 <base href="assets/">
 ```
+
 La etiqueta base debe llevar la ruta relativa o absoluta de los assets
 
 ### URLS para pruebas
+
 http://rutadelproyectodev
 
 ### URLS para producción
+
 http://rutadelproyectoprod
 
 ## FRONT-END
+
 ### Instalación
+
 La parte de interfaces (Estilos) se corre a través de **gulp**, por ende es necesario hacer la instalación de los paquetes establecidos en una terminal con soporte de **npm** por medio del comando:
 
 ```
@@ -28,7 +33,11 @@ La parte de interfaces (Estilos) se corre a través de **gulp**, por ende es nec
 npm -v
 npm install
 ```
+
+También es importante verificar que la versión de **node sea v16.7.0**
+
 ### Uso
+
 Si deseamos hacer cambios en la interface prenderemos nuestra consola, nos ubicaremos en la ruta base del proyecto y usaremos el siguiente comando:
 
 ```

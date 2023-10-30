@@ -31,7 +31,6 @@ body {
         display: block;
     }
 
-    @debug bp((value: 20, initial-base: 1920));
     .subtitle {
         @include font(
             clamp(szrem(24), 2.43vw, szrem(35)),
@@ -52,5 +51,19 @@ body {
         .italic {
             font-style: italic;
         }
+    }
+}
+
+.main_footer {
+    @include justify-content(flex-end);
+    @include align-items(center);
+    @include position(fixed, 0, 0, bottom);
+    @include wh(100vw, 60px);
+    @include flex;
+    padding-inline: clamp(10px, 1.04vw, 20px);
+
+    .version {
+        @include font(szrem(14));
+        color: $c3;
     }
 }

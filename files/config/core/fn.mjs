@@ -1,4 +1,7 @@
-exports.stringToBoolean = ((string) => {
+/* Update: 20231023 */
+"use strict";
+
+function stringToBoolean(string) {
     let result;
 
     string = String(string);
@@ -8,18 +11,20 @@ exports.stringToBoolean = ((string) => {
         case "yes":
         case "1":
             result = true;
-        break;
+            break;
 
         case "false":
         case "no":
         case "0":
             result = false;
-        break;
+            break;
 
         default:
             result = false;
-        break;
+            break;
     }
 
     return result;
-});
+}
+
+export { stringToBoolean }
