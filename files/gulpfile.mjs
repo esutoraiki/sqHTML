@@ -10,7 +10,7 @@ import merge from "merge-stream";
 import eslint from "gulp-eslint-new";
 import terser from "gulp-terser";
 import rename from "gulp-rename";
-import jsonlint from "gulp-jsonlint";
+import jsonlint from "@prantlf/gulp-jsonlint";
 import postcss from "gulp-postcss";
 import postinlinesvg from "postcss-inline-svg";
 import svgmin from "gulp-svgmin";
