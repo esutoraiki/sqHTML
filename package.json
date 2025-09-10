@@ -1,10 +1,10 @@
 {
   "name": "@esutoraiki/sqhtml",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Base to start projects in HTML, simply and quickly",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node install"
+    "postinstall": "node install.js"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "gulp-svgmin": "4.1.0",
     "gulp-uglify": "3.0.2",
     "merge-stream": "2.0.0",
-    "nodemon": "2.0.22",
+    "nodemon": "3.1.10",
     "postcss-inline-svg": "6.0.0",
     "sass": "1.62.1",
     "sisass": "1.1.21"
