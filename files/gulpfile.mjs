@@ -7,7 +7,7 @@ import dartSass from "sass";
 import gulpSass from "gulp-sass";
 import { deleteAsync } from "del";
 import merge from "merge-stream";
-import eslint from "gulp-eslint";
+import eslint from "gulp-eslint-new";
 import terser from "gulp-terser";
 import rename from "gulp-rename";
 import jsonlint from "gulp-jsonlint";
