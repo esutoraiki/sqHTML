@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/esutoraiki/sqHTML#readme",
   "dependencies": {
-    "browser-sync": "2.29.1",
+    "browser-sync": "3.0.4",
     "del": "7.0.0",
     "excolor": "1.0.2",
     "gulp": "4.0.2",
