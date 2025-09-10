@@ -190,13 +190,13 @@ task("jsmin", function () {
 
 task("jslint", function() {
     logs("");
-    logs("i%[magenta]---- JS-ES-LINT ----");
+    logs("%[magenta]---- JS-ES-LINT ----");
 
     let task_array = [];
 
     for (let i = 0; i < paths.js.src.length; i++) {
         task_array[i] = src(paths.js.src[i])
-            .pipe(eslint({}))
+            .pipe(eslint())
             .pipe(eslint.format())
             .pipe(eslint.results(results => {
                 // Called once for all ESLint results.

@@ -1,6 +1,6 @@
 {
   "name": "@esutoraiki/sqhtml",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "Base to start projects in HTML, simply and quickly",
   "main": "index.js",
   "scripts": {
