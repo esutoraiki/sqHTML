@@ -8,7 +8,7 @@ import gulpSass from "gulp-sass";
 import { deleteAsync } from "del";
 import merge from "merge-stream";
 import eslint from "gulp-eslint";
-import uglify from "gulp-uglify";
+import terser from "gulp-terser";
 import rename from "gulp-rename";
 import jsonlint from "gulp-jsonlint";
 import postcss from "gulp-postcss";
@@ -173,7 +173,7 @@ task("jsmin", function () {
 
     for (let i = 0; i < paths.js.src.length; i++) {
         task_array[i] = src(paths.js.src[i])
-            .pipe(uglify())
+            .pipe(terser())
             .pipe(rename(function (path) {
                 return {
                     dirname: path.dirname,
