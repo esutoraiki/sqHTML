@@ -6,13 +6,12 @@
 @import "keyframes";
 @import "layout";
 @import "mixin";
-@import "silent_class";
 
-
-html {}
-.no_scroll { overflow: hidden; }
+.no_scroll { overflow: hidden !important; }
 .hide { display: none !important; }
+.no_visible { visibility: hidden !important; }
 
+html { scroll-behavior: smooth; }
 body {
     @include scroll;
     @include font(100%);
@@ -32,7 +31,6 @@ body {
         display: block;
     }
 
-    @debug bp((value: 20, initial-base: 1920));
     .subtitle {
         @include font(
             clamp(szrem(24), 2.43vw, szrem(35)),
