@@ -3,7 +3,7 @@ const
     path = require("path");
 
     // args = process.argv.slice(2),
-    dest = path.join(__dirname, "../../../");
+    dest = path.join(__dirname, "../../");
     filesDir = "files/"
 ;
 
