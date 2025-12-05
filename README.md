@@ -1,4 +1,4 @@
-# sqhtml
+# sqHTML
 
 Base to start projects in HTML, simply and quickly.
 
@@ -8,27 +8,27 @@ Base to start projects in HTML, simply and quickly.
 
 ## Installation
 
-1. Open a terminal at the root of your project
-
-2. Optional step: run the following command in a terminal if your project 
-   is completely empty or presents location errors upon installation.
+1. Open a terminal at the root of your project.
+2. Optional (empty project): initialize npm metadata.
    
    ```bash
    npm init
    ```
-
-3. Execute
+3. Install:
    
    ```bash
    npm i sqhtml
-   npm explore sisass -- npm run init -- --dep sqhtml
    ```
-
-4. Rename the gitignore file
    
-   ```bash
-   mv gitignore .gitignore
-   ```
+   The postinstall will copy `files/` into your project, run `npm explore sisass -- npm run init -- --dep sqhtml`, and handle `gitignore` -> `.gitignore`. If `.gitignore` already exists, the duplicate `gitignore` is removed.
+
+### Skipping sisass init
+
+Set the environment variable if you need to bypass the sisass init during CI or custom workflows:
+
+```bash
+SKIP_SISASS_INIT=1 npm i sqhtml
+```
 
 ## Server
 
