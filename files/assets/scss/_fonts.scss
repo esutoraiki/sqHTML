@@ -1,0 +1,24 @@
+@use "sisass/src/sisass" as sisass;
+
+@include sisass.font-face(
+    (
+        name: "Roboto",
+        path: "../fonts/roboto/roboto_regular"
+    )
+);
+
+@include sisass.font-face(
+    (
+        name: "Roboto",
+        path: "../fonts/roboto/roboto_bold",
+        weight: bold
+    )
+);
+
+@include sisass.font-face(
+    (
+        name: "Roboto",
+        path: "../fonts/roboto/roboto_italic",
+        style: italic
+    )
+);

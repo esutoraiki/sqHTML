@@ -27,7 +27,8 @@
         "depen": [
             "assets/scss/",
             "assets/scss/core/",
-            "node_modules/sisass/src/scss/"
+            "node_modules/",
+            "../node_modules/"
             ],
         "core": "assets/scss/core/*.scss"
     },

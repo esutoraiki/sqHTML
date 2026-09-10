@@ -1,12 +1,17 @@
-@import "instance";
+@use "../core" as *;
 
 .logo_sqhtml {
     &:before {
-        @include icon-svg(
-            logo_sqhtml,
-            270px, 99px,
-            $c3
-        );
+        @include icon-svg((
+            svg: logo_sqhtml,
+            width: 270px,
+            height: 99px,
+            fill: $c3,
+            position: (
+                position: absolute,
+                z: false
+            )
+        ));
         content: "";
     }
 }

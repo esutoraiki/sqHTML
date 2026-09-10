@@ -48,15 +48,20 @@ http.createServer(function (request, response) {
         ".ttf": "applilcation/font-ttf",
         ".eot": "application/vnd.ms-fontobject",
         ".otf": "application/font-otf",
+        ".pdf": "application/pdf",
         ".scss": "text/x-scss"
     };
 
-    contentType = mimeTypes[extname] || "application/octect-stream";
+    contentType = mimeTypes[extname] || "application/octet-stream";
     fs.readFile(filePath, function (error, content) {
         if (error) {
             if (error.code === "ENOENT"){
                 fs.readFile("./404.html", function (error, content) {
-                    response.writeHead(200, { "Content-Type": contentType });
+                    response.writeHead(200, {
+                        "Content-Type": contentType,
+                        "Content-Disposition": "inline"
+                    });
+
                     response.end(content, "utf-8");
                 });
             } else {

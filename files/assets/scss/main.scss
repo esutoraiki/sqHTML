@@ -1,12 +1,8 @@
-@import "variables";
-@import "vendor";
-@import "base";
-@import "mediaqueries";
-@import "fonts";
-@import "reset";
-@import "keyframes";
-@import "layout";
-@import "mixin";
+@use "core" as *;
+@use "sisass/src/reset";
+@use "fonts";
+@use "core/keyframes";
+@use "core/layout";
 
 .no_scroll { overflow: hidden !important; }
 .hide { display: none !important; }
@@ -14,9 +10,9 @@
 
 html { scroll-behavior: smooth; }
 body {
-    @include scroll;
-    @include font(100%);
-    @include no-margins;
+    @include scroll((thumb_color: white));
+    @include font(100%, $f1);
+    @include no-spacing;
     @include no-border;
     @include bc($c1, $c2);
 }
@@ -27,7 +23,7 @@ body {
 
     .logo_sqhtml {
         @include ht;
-        @include position;
+        @include position((z: false));
         @include wh(270px, 99px);
         display: block;
     }
@@ -45,6 +41,7 @@ body {
     .text {
         @include font(
             clamp(szrem(16), 1.38vw, szrem(20)),
+            $f1
         );
         margin-top: 5px;
         color: $c3;
